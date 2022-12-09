@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="file" id="file">
+    <div id="div1"></div>
+    <script>
+        window.onload = function () {
+            var file = document.getElementById('file');
+            var div1 = document.getElementById('div1');
+            file.onchange = function () {
+                // var fData = file.value;
+                // console.log(fData);//安全模式下的“伪路径”
+
+                var reader = new FileReader();
+                reader.readAsDataURL(file.files[0]);
+                //调用readAsDataURL方法来读取选中的图像文件
+                reader.onload = function (e) {
+                    var src = e.target.result;
+                    console.log(src);  //编码过的图片
+                    var oImg = new Image();
+                    oImg.src = src;
+                    div1.appendChild(oImg);
+                };
+            }
+        }
+
+
+        // FileReader方法与事件
+        // abort	中断读取
+        // readAsText(file, [encoding])	将文件读取为文本该方法有两个参数，其中第二个参数是文本的编码方式，默认值为 UTF - 8。这个方法非常容易理解，将文件以文本方式读取，读取的结果即是这个文本文件中的内容。
+        // readAsBinaryString(file)	将文件读取二进制码通常我们将它传送到后端，后端可以通过这段字符串存储文件
+        // readAsDataURL(file)	将文件读取为DataURL将文件读取为一串Data URL字符串，将小文件以一种特殊格式的URL地址直接读入页面。小文件指图像与html等格式的文件。
+        // 事件
+        // onabort	数据读取中断时触发
+        // onerror	数据读取出错时触发
+        // onloadstart	数据读取开始时触发
+        // onload	数据读取成功完成时触发
+        // onloadend	数据读取完成时触发，无论成功失败
+    </script>
+</body>
+
+</html>

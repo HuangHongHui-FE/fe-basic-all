@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <svg class="text">aaaaa</svg>
+        <canvas id="myCanvas">aaaa</canvas>
+    </div>
+
+    <script>
+        // 在 SVG 中获取文字元素度
+        // svg 中是一个一个元素组成的，和原生DOM元素差不多，
+        // 所以就可使用获取普通元素宽度的API， getComputedTextLength 、getBoundingClientRect。
+        let $text = document.querySelector('.text');
+        console.log($text);
+
+        // 方法 1
+        // let w = $text.getComputedTextLength();
+        // console.log(w);
+
+        // 方法 2
+        let w2 = $text.getBoundingClientRect().width
+        console.log(w2);
+
+
+        // 在 Canvas 中获取文字元素度
+        const c = document.getElementById("myCanvas")
+        const ctx = c.getContext("2d")
+        ctx.font = "30px Arial"
+        const txt = "Hello World"
+        let w3 = ctx.measureText(txt).width;
+        console.log(w3);
+
+    </script>
+</body>
+
+</html>

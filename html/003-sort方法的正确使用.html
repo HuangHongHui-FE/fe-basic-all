@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 诡异的结果:
+        ['Xiaomi', 'apple', 'Oppo'].sort(); // ['Oppo', 'Xiaomi", 'apple']
+        // sort()方法是根据字符串的ASCII码进行排序，也叫unicode编码。
+        // 而同一个英文字母，小写字母的ASCII码是排在大写字母的后边，所以得到这种结果。
+
+        // 解决：
+        var arr = ['Xiaomi', 'apple', 'Oppo'];
+        arr.sort(function (s1, s2) {
+            x1 = s1.toUpperCase();
+            x2 = s2.toUpperCase();
+            if (x1 < x2) {
+                return -1;
+            }
+            if (x1 > x2) {
+                return 1;
+            }
+            return 0;
+        }); // ['apple', 'Oppo', 'Xiaomi']
+
+
+
+        // 无法理解的结果:
+        [10, 22, 1, 8, 2].sort(); // [1, 10, 2, 22, 8]
+
+        // 隐式转化成字符串了
+
+    </script>
+</body>
+
+</html>

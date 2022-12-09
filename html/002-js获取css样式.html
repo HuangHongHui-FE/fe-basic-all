@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <style>
+        #div1 {
+            width: 200px;
+            background: #00f;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1" style="height:100px;"></div>
+    <script>
+        window.onload = function () {
+            var oDiv = document.getElementById('div1');
+            // 直接用oDiv.style方法只能获取元素的内联样式，对于内部样式和外联样式，这种方法则不能取得。
+            console.log(oDiv.style.width);
+            console.log(oDiv.style.height);
+
+
+            // IE:
+            // console.log(oDiv.currentStyle)
+
+            // 其他
+            // console.log(window.getComputedStyle(oDiv, null));
+        }
+
+        // 封装兼容方法
+        function getStyle(obj, attr) {
+            return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj)[attr];
+        }
+    </script>
+</body>
+
+</html>
