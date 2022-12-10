@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS3新属性：mix-blend-mode | 天問</title>
+    <style>
+        .container {
+            padding: 30px 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .box {
+            text-align: center;
+            padding: 30px;
+            background: #E998A3;
+            margin-top: 20px;
+        }
+
+        .img {
+            height: 80px;
+        }
+
+        .mixin .img {
+            mix-blend-mode: multiply;
+        }
+
+        .desc {
+            padding: 30px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>CSS3新属性：mix-blend-mode</h1>
+
+        <div class="box">
+            <img src="https://tiven.cn/static/img/hourglass-time-hours-sand-preview-tOqBton_9Qy7cZsnLctFJ.jpg"
+                alt="tiven.jpg" class="img">
+            <div class="desc">原图展示</div>
+        </div>
+
+        <div class="box mixin">
+            <img src="https://tiven.cn/static/img/hourglass-time-hours-sand-preview-tOqBton_9Qy7cZsnLctFJ.jpg"
+                alt="tiven.jpg" class="img">
+            <div class="desc">使用mix-blend-mode属性后展示</div>
+        </div>
+    </div>
+
+</body>
+
+</html>
