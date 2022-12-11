@@ -22,7 +22,27 @@ https://tiven.cn/p/a7460bda/
 
 https://tiven.cn/p/1612b5cd/
 
+#### parseInt的小bug
 
+```
+// 正常
+console.log(parseInt(0.000001))   // 0
+
+// bug
+console.log(parseInt(0.0000001))  // 1
+
+原因：
+parseInt()函数的第一个参数默认字符串，如果不是字符串可能在处理时会进行转换。像这种：
+console.log(String(0.0000001))  // '1e-7'
+console.log(parseInt('1e-7'))  // 1
+console.log(0.0000001)        // 1e-7
+console.log(parseInt(1e-7))   // 1
+console.log(parseInt('1e-7')) // 1
+
+解决：
+// 1e-7 
+console.log(Math.floor(0.0000001))  // 0
+```
 
 
 

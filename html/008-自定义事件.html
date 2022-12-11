@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 文档在这 -->
+    <div>https://developer.mozilla.org/zh-CN/docs/Web/Events/Creating_and_triggering_events</div>
+    <div>dom</div>
+
+    <!-- 事件冒泡 -->
+    <form>
+        <textarea></textarea>
+    </form>
+
+    <script>
+        var event = new Event('build');
+        const elem = document.getElementsByTagName('div')[0];
+        elem.addEventListener('build', function (e) { console.log('build'); }, false);
+
+        // Dispatch the event.
+        elem.dispatchEvent(event);
+
+
+        // 添加自定义数据 – CustomEvent()
+        var event2 = new CustomEvent('build', { 'detail': elem.dataset.time });
+        function eventHandler(e) {
+            log('The time is: ' + e.detail);
+        }
+
+        // 过时的方式
+        // Create the event.
+        var event = document.createEvent('Event');
+        // Define that the event name is 'build'.
+        event.initEvent('build', true, true);
+        // Listen for the event.
+        document.addEventListener('build', function (e) {
+            // e.target matches document from above
+        }, false);
+        // target can be any Element or other EventTarget.
+        document.dispatchEvent(event);
+
+
+        // 事件冒泡
+        const form = document.querySelector('form');
+        const textarea = document.querySelector('textarea');
+
+        // Create a new event, allow bubbling, and provide any data you want to pass to the "details" property
+        const eventAwesome = new CustomEvent('awesome', {
+            bubbles: true,
+            detail: { text: () => textarea.value }
+        });
+
+        // The form element listens for the custom "awesome" event and then consoles the output of the passed text() method
+        form.addEventListener('awesome', e => console.log(e.detail.text()));
+
+        // As the user types, the textarea inside the form dispatches/triggers the event to fire, and uses itself as the starting point
+        textarea.addEventListener('input', e => e.target.dispatchEvent(eventAwesome));
+
+
+    </script>
+</body>
+
+</html>
