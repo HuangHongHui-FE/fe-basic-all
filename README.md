@@ -44,6 +44,24 @@ console.log(parseInt('1e-7')) // 1
 console.log(Math.floor(0.0000001))  // 0
 ```
 
+#### git提交信息规范
+
+```
+git message 提交信息类型
+feat: 一项新需求、新功能
+fix: 一个错误（bug）修复
+docs: 仅文档（readme）更改
+style: 不影响代码逻辑的更改（空白，格式，缺少分号，style，css修改等）
+refactor: 既不修正错误也不增加功能的代码更改（重构）
+perf: 改进性能的代码更改
+test: 添加缺失或更正现有测试
+build: 影响构建系统或外部依赖项的更改（webpack，vite，npm等）
+ci: 对CI配置文件和脚本的更改
+chore: 更改构建过程或辅助工具和库（babel，lodash）
+
+git commit -m "fix: change main.js"
+```
+
 
 
 next: 

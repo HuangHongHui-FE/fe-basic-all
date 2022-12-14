@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 注意开头如果有？会被忽略
+        let { search } = new URL('https://tiven.cn?id=12&dt=2022-10-10&sort=desc')
+        console.log(search) // ?id=12&dt=2022-10-10&sort=desc
+
+        // 创建 URLSearchParams 对象
+        let p1 = new URLSearchParams(search);
+        let p2 = new URLSearchParams([["id", 12], ["dt", '2022-10-10'], ["sort", 'desc']]);
+        let p3 = new URLSearchParams({ "id": 12, "dt": '2022-10-10', "sort": 'desc' });
+        console.log(p1.toString()) // id=12&dt=2022-10-10&sort=desc
+        console.log(p2.toString()) // id=12&dt=2022-10-10&sort=desc
+        console.log(p3.toString()) // id=12&dt=2022-10-10&sort=desc
+
+        // entries
+        for (let [k, v] of p1.entries()) {
+            console.log(k, v)
+        }
+
+        // forEach
+        p1.forEach((v, k) => {
+            console.log(k, v)
+        })
+
+        // has 判断是否包含某个查询参数
+        console.log(p1.has('id')) // true
+        console.log(p1.has('name')) // false
+
+        // get 获取某个参数值
+        console.log(p1.get('id')) // 12
+        console.log(p1.get('age')) // null
+
+        // append 添加键值对
+        p1.append('name', 'Tiven')
+        console.log(p1.toString()) // id=12&dt=2022-10-10&sort=desc&name=Tiven
+
+        // delete 删除键值对
+        p1.delete('name')
+        console.log(p1.toString()) // id=12&dt=2022-10-10&sort=desc
+
+        // sort 排序
+        p1.sort()
+        console.log(p1.toString()) // dt=2022-10-10&id=12&sort=desc
+    </script>
+</body>
+
+</html>
