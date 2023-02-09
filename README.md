@@ -62,6 +62,15 @@ chore: 更改构建过程或辅助工具和库（babel，lodash）
 git commit -m "fix: change main.js"
 ```
 
+#### git更新版本windows
+
+1. 官网下载最新版本，安装
+2. 执行命令
+
+```
+git update-git-for-windows
+```
+
 
 
 next: 

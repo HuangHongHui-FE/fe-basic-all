@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/2.3.1/jsencrypt.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 加密
+        var encryptor = new JSEncrypt()
+        var pubKey = '-----BEGIN PUBLIC KEY-----MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMy13LHb7iKbHONjjL/Rs5dMRsp1rRS5WHc9ZI0MfKpYEAGaOrOEvqqIVBb9a+5CGhMOvPX2qFrC1VOySHvw9lkCAwEAAQ==-----END PUBLIC KEY-----'
+        encryptor.setPublicKey(pubKey)
+        var rsaPassWord = encryptor.encrypt('黄洪辉')  // 对内容进行加密
+        console.log(rsaPassWord);
+
+
+        // 解密
+        var decrypt = new JSEncrypt()//创建解密对象实例
+        //之前ssl生成的秘钥
+        var priKey = `-----BEGIN RSA PRIVATE KEY-----
+MIIBPQIBAAJBAMy13LHb7iKbHONjjL/Rs5dMRsp1rRS5WHc9ZI0MfKpYEAGaOrOE
+vqqIVBb9a+5CGhMOvPX2qFrC1VOySHvw9lkCAwEAAQJBAMrrq20TGadsIuK0l5y9
+fkyH69RdeciFQdBRJw86RYmEIbVosyfn7oSMd3uF6+kOvrIYRUn/WhGf5Wmi9d+q
+MdECIQD8aPEToeT5sX1TVdZBh2XSRf12KTqnqUlEnm8S56laRwIhAM+fPXHYGCN/
+xQxrOcSIRERknOtuUGQuy5z/MAMtCNpfAiEA8COrUKFTJpfNg06EBF4b6lz6UsPQ
+8RhnA6i0Rkku3xsCIQDNeJA8jFlHOHlwEuW2pAy7ir7pF+EjZFRJaRrA6d6rDQIh
+AIhKjEhNlplCD+rGU7MNWa9yv5tqVinSx6xKkyZVHQnx
+-----END RSA PRIVATE KEY-----`
+        decrypt.setPrivateKey(priKey)
+        var uncrypted = decrypt.decrypt(rsaPassWord) //解密之前拿公钥加密的内容
+        console.log('解密后:', uncrypted);
+    </script>
+</body>
+
+</html>
