@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="D1" class="D1">
+        <div class="d1">
+            <p class="p1"></p>
+        </div>
+        <div class="d2">
+            <p class="p2">
+                <i></i>
+            </p>
+        </div>
+    </div>
+    <script>
+
+        // 深度遍历
+        var node = document.getElementById('D1');
+        function deepInterator(node) {
+            console.log(node);
+            if (node.children.length) {
+                for (var i = 0; i < node.children.length; i++) {
+                    deepInterator(node.children[i]);
+                }
+            }
+        }
+        console.time('deepInterator');
+        deepInterator(node);
+        console.timeEnd('deepInterator');
+
+
+        // 广度遍历
+        function rangeInterator(node) {
+            var arr = [];
+            arr.push(node);
+            while (arr.length > 0) {
+                node = arr.shift();
+                console.log(node);
+                if (node.children.length > 0) {
+                    for (var i = 0; i < node.children.length; i++) {
+                        arr.push(node.children[i]);
+                    }
+                }
+            }
+        }
+        console.time('rangeInterator');
+        rangeInterator(node);
+        console.timeEnd('rangeInterator');
+    </script>
+</body>
+
+</html>
