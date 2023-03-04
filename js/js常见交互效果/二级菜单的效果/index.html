@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二级菜单</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .banner{
+            background-image: url(images/back.png);
+            width: 820px;
+            height: 410px;
+            margin: 60px auto;
+            position: relative;
+        }
+        .item{
+            width: 220px;
+            height: 410px;
+            background-color: rgba(0, 0, 0, .4);
+        }
+        .item ul{
+            width: 220px;
+            height: 360px;
+            background-color: rgb(216, 107, 107);
+            position: absolute;
+            top: 25px;
+        }
+        .item ul li{
+            list-style: none;
+            height: 60px;
+            padding: 0 40px;
+            line-height: 60px;
+            font-size: 16px;
+            color: rgb(255, 255, 255);
+            cursor: pointer;
+        }
+        .item ul li:hover{
+            background-color: rgb(240, 240, 41);
+        }
+        .cont{
+            top: 0;
+            left: 220px;
+            position: absolute;
+            background-color: rgba(245, 122, 122, 0.3);
+            width: 600px;
+            height: 410px;
+        }
+        .cont_box{
+            width: 600px;
+            height: 410px;
+            position: absolute;
+        }
+
+        .bgc{
+            background-color: rgba(88, 141, 248, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="item">
+            <ul>
+                <li class="bgc">手机/平板</li>
+                <li>电脑/配件</li>
+                <li>音响/智能</li>
+                <li>电视/路由</li>
+                <li>电源/配件</li>
+                <li>耳机/音响</li>
+            </ul>
+        </div>
+        <div class="cont">
+            <div class="cont_box">手机/平板</div>
+            <div class="cont_box">电脑/配件</div>
+            <div class="cont_box">音响/智能</div>
+            <div class="cont_box">电视/路由</div>
+            <div class="cont_box">电源/配件</div>
+            <div class="cont_box">耳机/音响</div>
+        </div>
+    </div>
+
+
+    <script>
+        // 获取要操作的元素
+        var lis = document.getElementsByTagName('li')
+        var contBox = document.getElementsByClassName('cont_box')
+        // 给li添加移入事件
+        for(var i = 0; i < lis.length; i++){
+            lis[i].index = i
+            lis[i].addEventListener('mouseover', function(){
+                // 添加前先清除
+                for(var j = 0; j < contBox.length; j++){
+                    lis[j].className = ''
+                    contBox[j].style.display = 'none'
+                }
+                // 谁调用给谁添加
+                // console.log(this)
+                this.className = 'bgc';
+                contBox[this.index].style.display = "block"
+            })
+        }
+    </script>
+</body>
+</html>
