@@ -20,7 +20,7 @@ function compile(code) {
     // 2,traverse
     const visitor = {
         CallExpression(path) {
-            // console.log('path---', path.node);
+            console.log('path---', path.node.callee);
             const { callee } = path.node;
             const isConsoleLog =
                 types.isMemberExpression(callee) &&
