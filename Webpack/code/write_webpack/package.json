@@ -1,0 +1,25 @@
+{
+  "name": "write_webpack",
+  "version": "1.0.0",
+  "description": "node bundler.js",
+  "main": "bundler.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "build": "node bundler.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "@babel/parser": "^7.19.3",
+    "@babel/preset-env": "^7.19.3",
+    "@babel/traverse": "^7.19.3"
+  },
+  "dependencies": {
+    "highlight": "^0.2.4",
+    "js-beautify": "^1.14.6"
+  }
+}
