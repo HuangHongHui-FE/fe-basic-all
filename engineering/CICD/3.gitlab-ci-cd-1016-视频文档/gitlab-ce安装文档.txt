@@ -1,0 +1,94 @@
+
+gitlab-ce安装：
+参考文章：https://blog.csdn.net/qq_30374237/article/details/118189824
+
+yum -y install policycoreutils openssh-server openssh-clients postfix
+
+yum install  policycoreutils-python
+
+systemctl enable sshd && sudo systemctl start sshd
+
+systemctl enable postfix && systemctl start postfix
+systemctl stop firewalld.service
+
+安装gitlab-ce，这个安装包有问题：
+wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el6/gitlab-ce-13.6.7-ce.0.el6.x86_64.rpm
+
+安装gitlab-ce，我用了这个安装地址，可以
+wget --content-disposition https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-ce-15.2.2-ce.0.el7.x86_64.rpm/download.rpm
+
+将这个rpm包下载到本地，直接安装即可
+yum install -y gitlab-ce-15.2.2-ce.0.el7.x86_64.rpm
+
+查看gitlab的配置文件
+cd /etc/gitlab
+
+vi gitlab.rb
+
+
+三种模式
+1.命令模式（默认）
+可以搜索 /external_url
+2.插入模式：按i键，可以修改内容（-- INSERT --提示）
+按左上角esc按钮，可以切换模式
+输入退出并保存的指令:wq
+不需要修改，直接退出:q
+
+gitlab-ctl reconfigure
+gitlab-ctl restart
+
+
+查看初始密码：/etc/gitlab/initial_root_password文件
+https://blog.csdn.net/wangpaiblog/article/details/122294818?spm=1001.2101.3001.6650.5&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5-122294818-blog-113451660.pc_relevant_multi_platform_whitelistv3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5-122294818-blog-113451660.pc_relevant_multi_platform_whitelistv3&utm_relevant_index=10
+
+
+本地装好git软件，自己去百度一下。
+
+编辑器vs code
+
+3.安装gitlab-runner
+参考文章：https://juejin.cn/post/6844903798796730375
+
+我们服务器是CentOS
+curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.rpm.sh | sudo bash
+
+安装：
+sudo yum install gitlab-ci-multi-runner
+
+gitlab-runner 注册
+获取gitlab-ci的Token: 项目主页 -> Sttings -> CI/CD -> Runners Expand
+
+指令：
+gitlab-runner register
+
+验证runner是否能正常运行
+参考文章：https://blog.csdn.net/sinat_17775997/article/details/115700703
+
+如果运行不正常，就要检查Run untagged jobs是否开启
+
+安装一个静态服务器，用来展示web页面的
+https://blog.csdn.net/sinat_17775997/article/details/115700703
+指令：
+https://jingyan.baidu.com/article/1709ad80c38e240634c4f098.html
+yum install httpd
+httpd -v
+
+因为gitlab已经占用了80端口
+修改httpd配置文件的路径是/etc/httpd/conf/httpd.conf
+所以这个httpd要改他的默认端口80为8000
+
+启动http服务
+service httpd start
+
+装其他软件
+yum install sshpass
+先将这个提问关闭，等第一次生产密钥之后，再打开就好。
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
+参考：https://blog.csdn.net/zhengzaifeidelushang/article/details/109348222
+
+vim /etc/ssh/ssh_config
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+
+esc键
+微信号yizheng369
