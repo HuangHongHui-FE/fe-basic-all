@@ -1,0 +1,13 @@
+.container{
+    column-width: 250px;
+    column-gap: 5px;
+    -webkit-column-width: 250px;
+    -webkit-column-gap: 5px;
+}
+.container div{
+    width: 5px;
+    margin: 5px 0px;     /*上下左右间距*/
+}
+.container p{
+    text-align: center;
+}

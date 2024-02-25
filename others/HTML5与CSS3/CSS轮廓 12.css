@@ -1,0 +1,5 @@
+p{
+    outline-width: 1px;
+    outline-color: red;     /*颜色*/
+    outline-style:dotted;   /*轮廓的样式*/
+}

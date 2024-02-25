@@ -1,0 +1,35 @@
+{
+  "name": "allnpm",
+  "version": "1.0.0",
+  "description": "与node cli相关的第三方npm包的学习",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "cli"
+  ],
+  "author": "HHH",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "child_process": "^1.0.2",
+    "chokidar": "^3.5.3",
+    "classnames": "^2.3.2",
+    "clear": "^0.1.0",
+    "commander": "^9.4.1",
+    "cross-spawn": "^7.0.3",
+    "express": "^4.18.2",
+    "figlet": "^1.5.2",
+    "file-stream-rotator": "^0.6.1",
+    "glob": "^8.0.3",
+    "inquirer": "^8.0.0",
+    "lodash": "^4.17.21",
+    "minimist": "^1.2.6",
+    "morgan": "^1.10.0",
+    "rollup": "^2.79.1",
+    "say": "^0.16.0",
+    "x-crawl": "^7.0.0"
+  }
+}
