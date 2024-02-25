@@ -1,0 +1,24 @@
+body{
+    background-image:url("1.png");
+    background-size:100px 1000px;
+    background-color:darkgray;
+    background-repeat:no-repeat;  /*no-repeat,repeat-y,repeat*/
+    background-position: right top;
+    /*right代表right,center  可以用right top ,left,   也可100px 100px，也可百分比*/
+    background-attachment: fixed;
+    /*跟随滚动*/
+    /*background-origin:规定背景图片的定位区域     background-clip:规定背景图片的绘制区域*/
+}
+
+p{
+    width: 150px;
+    padding: 10px;
+    background-color:red;
+    color:blue;
+}
+
+h{
+    width:200px;
+    background-image:url("1.png");
+/*标签也能加背景*/
+}
