@@ -7,12 +7,9 @@
 #### 网站支持http2检测
 
 - https://myssl.com/http2_check.html
-
 - ```
   window.chrome.loadTimes()
   ```
-
-
 
 #### package.json中`npm scripts`的生命周期
 
@@ -71,35 +68,26 @@ git commit -m "fix: change main.js"
 git update-git-for-windows
 ```
 
-
-
-next: 
+next:
 
 - H5页面与原生交互-JsBridge
 
   https://tiven.cn/p/5790753b/
-
 - NodeJs深入浅出 · require原理
 
   https://tiven.cn/p/8095c6b7/
-
 - Blob与File、DataURL、canvas的相互转换
 
   https://tiven.cn/p/289c2beb/
-
 - preload与prefetch的使用和区别
 
   https://tiven.cn/p/412392ba/
-
 - JavaScript中的内存泄漏
 
   https://tiven.cn/p/cbdc36eb/
-  
 - pm2:
 
   https://tiven.cn/p/999defa6/
-
-
 
   全栈demo学习：
 
@@ -108,3 +96,6 @@ https://github.com/2662419405/AllDemo
 RNdemo:
 
 https://github.com/2662419405/RN_APP
+
+
+验证测试 github
