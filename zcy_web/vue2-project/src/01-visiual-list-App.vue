@@ -5,9 +5,7 @@
     <div class="main">
       <div v-for="(row, index0) in uiPeriodList" :key="index0">
         <div class="period" :style="periodStyle">
-          <div v-for="(column, index1) in row.columnList" :key="column.id">
-            /* 详细展示元素 */
-          </div>
+          <div v-for="(column, index1) in row.columnList" :key="column.id">/* 详细展示元素 */</div>
         </div>
       </div>
     </div>
