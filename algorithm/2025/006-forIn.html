@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let parent = { inheritedProp: "继承的属性" };
+      let child = Object.create(parent);
+      child.ownProp = "自己的属性";
+
+      for (let key in child) {
+        console.log(key); // 输出: ownProp, inheritedProp (包括继承的属性)
+      }
+
+      // 使用 hasOwnProperty 过滤
+      for (let key in child) {
+        if (child.hasOwnProperty(key)) {
+          console.log(key); // 只输出: ownProp (只处理自己的属性)
+        }
+      }
+    </script>
+  </body>
+</html>

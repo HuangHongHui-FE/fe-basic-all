@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let data = {
+        name: "111",
+        hobby: ["睡觉", "玩"],
+        word: {
+          time: "12",
+        },
+      };
+      data.self = data;
+
+      // 浅拷贝
+      // let copyData = { ...data };
+      // copyData.name = "hhh";
+      // copyData.word.time = 10;
+      // console.log("🚀 ~ copyData:", data, copyData);
+
+      function deepClone(target, weakMap) {
+        if (typeof target !== "object") {
+          return target;
+        }
+
+        if (weakMap.has(target)) {
+          return weakMap.get(target);
+        }
+
+        let res = Array.isArray(target) ? [] : {};
+
+        weakMap.set(target, res);
+
+        for (let item in target) {
+          if (target.hasOwnProperty(item)) {
+            res[item] = deepClone(target[item], weakMap);
+          }
+        }
+        return res;
+      }
+
+      // 深拷贝
+      let temp = deepClone(data, new WeakMap());
+      temp.word.time = 10;
+      console.log("🚀 ~ temp:", temp, data);
+    </script>
+  </body>
+</html>

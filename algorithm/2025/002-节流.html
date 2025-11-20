@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <button id="jl">节流</button>
+    <script>
+      let btn = document.getElementById("jl");
+
+      const handleBthClick = (e, name) => {
+        console.log("🚀 ~ handleBthClick ~ e:", e, name);
+      };
+
+      const jlFn = (callback, time) => {
+        let timer;
+        return function (...args) {
+          if (timer) {
+            return;
+          }
+          timer = setTimeout(() => {
+            callback.apply(this, args);
+            timer = null;
+          }, time);
+        };
+      };
+
+      btn.addEventListener(
+        "click",
+        jlFn((e) => handleBthClick(e, "111"), 3000)
+      );
+    </script>
+  </body>
+</html>

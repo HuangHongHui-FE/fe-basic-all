@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <button id="fd">防抖</button>
+    <script>
+      let btn = document.getElementById("fd");
+
+      const handleBthClick = (e, name) => {
+        console.log("🚀 ~ handleBthClick ~ e:", e, name);
+      };
+
+      const fdFn = (callback, time) => {
+        let timer;
+        return function (...args) {
+          if (timer) {
+            clearTimeout(timer);
+          }
+
+          timer = setTimeout(() => callback.apply(this, args), time);
+        };
+      };
+
+      btn.addEventListener(
+        "click",
+        fdFn((e) => handleBthClick(e, "111"), 3000)
+      );
+    </script>
+  </body>
+</html>

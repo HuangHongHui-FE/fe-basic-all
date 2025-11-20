@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+      function ins(person, Person) {
+        if (typeof person !== "object") {
+          return false;
+        }
+        let temp = person.__proto__;
+        while (temp) {
+          if (temp == Person.prototype) {
+            return true;
+          } else {
+            temp = temp.__proto__;
+          }
+        }
+        return false;
+      }
+
+      console.log("🚀 ~ ins ~ ins:", ins(arr, Array));
+    </script>
+  </body>
+</html>

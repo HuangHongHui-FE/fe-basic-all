@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function Person(age) {
+        this.name = "111";
+        this.age = age;
+
+        // return {
+        //   name: '333'
+        // }
+      }
+
+      Person.prototype.sayHello = function () {
+        console.log("🚀 ~ sayHello:", this.name, this.age);
+      };
+
+      // const person = new Person(20);
+      // console.log("🚀 ~ person:", person);
+      // person.sayHello();
+
+      const customNew = (Fn, ...args) => {
+        let obj = {};
+        obj.__proto__ = Fn.prototype;
+
+        // 如果构造函数返回了个对象，这里也返回对象
+        let res = Fn.apply(obj, args);
+        return typeof res === "object" ? res : obj;
+      };
+
+      const customPerson = customNew(Person, 18);
+      customPerson.sayHello();
+    </script>
+  </body>
+</html>
