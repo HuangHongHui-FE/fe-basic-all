@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>观察者模式 Demo</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>观察者模式 Demo（目标-观察者直接关联）</h1>
+    </div>
+
+    <script>
+      // 1. 观察者模式核心实现：目标类（Subject）+ 观察者类（Observer）
+      /**
+       * 目标类（Subject）- 被观察的对象
+       * 职责：维护观察者列表、添加/移除观察者、通知所有观察者
+       */
+      class Subject {
+        constructor() {
+          this.observers = [];
+          this.state = null;
+        }
+
+        addObserver(observer) {
+          // 避免重复添加同一个观察者
+          if (!this.observers.includes(observer)) {
+            this.observers.push(observer);
+          }
+        }
+
+        removeObserver(observer) {
+          this.observers = this.observers.filter((obs) => obs !== observer);
+        }
+
+        /**
+         * 设置目标状态（状态变化时自动通知所有观察者）
+         */
+        setState(newState) {
+          this.state = newState; // 更新状态
+          this.notifyObservers(); // 通知所有观察者
+        }
+
+        /**
+         * 通知所有观察者（核心方法）
+         * 主动调用每个观察者的 update 方法，传递当前状态
+         */
+        notifyObservers() {
+          this.observers.forEach((observer) => {
+            observer.update(this.state); // 观察者必须实现 update 方法
+          });
+        }
+      }
+
+      /**
+       * 观察者类（Observer）- 监听目标状态变化
+       * 职责：实现 update 方法，接收目标的状态通知并处理
+       */
+      class Observer {
+        /**
+         * 构造器
+         * @param {string} id - 观察者唯一标识（用于展示）
+         * @param {Function} callback - 状态变化时的处理逻辑
+         */
+        constructor(id, callback) {
+          this.id = id; // 观察者ID
+          this.callback = callback; // 自定义处理逻辑
+        }
+
+        /**
+         * 接收目标通知的核心方法（必须实现）
+         * @param {any} state - 目标的当前状态
+         */
+        update(state) {
+          // 调用自定义回调，传递观察者ID和目标状态
+          this.callback(this.id, state);
+        }
+      }
+
+      // 2. Demo 业务逻辑（模拟「商品库存」目标，观察者监听库存变化）
+
+      // 初始化目标（以「商品库存」为观察目标）
+      const productSubject = new Subject();
+      productSubject.setState(100); // 初始库存：100
+
+      // DOM 元素获取
+      const logContainer = document.getElementById("logContainer");
+      const observerTags = document.getElementById("observerTags");
+      const subjectStatus = document.getElementById("subjectStatus");
+      let observerId = 1; // 观察者ID自增器
+      const observerInstances = []; // 存储观察者实例（用于移除）
+
+      // 辅助函数：添加日志到页面
+      function addLog(content, type = "info") {
+        const now = new Date().toLocaleTimeString();
+        const logItem = document.createElement("div");
+        logItem.className = `log-item ${type}`;
+        logItem.innerHTML = `
+                <div class="log-time">${now}</div>
+                <div class="log-content">${content}</div>
+            `;
+        logContainer.prepend(logItem); // 新日志添加到顶部
+      }
+
+      // 辅助函数：更新观察者列表展示
+      function updateObserverTags() {
+        if (observerInstances.length === 0) {
+          observerTags.innerHTML = '<span class="observer-tag">暂无观察者</span>';
+          return;
+        }
+        observerTags.innerHTML = observerInstances
+          .map((obs) => `<span class="observer-tag">观察者${obs.id}</span>`)
+          .join("");
+      }
+
+      // 辅助函数：更新目标状态展示
+      function updateSubjectStatus() {
+        subjectStatus.textContent = `库存：${productSubject.state} 件`;
+        addLog(`🎯 目标状态更新：商品库存 = ${productSubject.state} 件`, "success");
+      }
+
+      // 1. 添加观察者按钮事件
+      document.getElementById("addObserverBtn").addEventListener("click", () => {
+        const id = `#${observerId++}`;
+        // 创建观察者实例（自定义状态变化的处理逻辑）
+        const observer = new Observer(id, (obsId, state) => {
+          addLog(`👁️  观察者${obsId} 收到通知：商品库存更新为 ${state} 件`, "info");
+        });
+        // 目标添加该观察者
+        productSubject.addObserver(observer);
+        // 存储观察者实例（用于后续移除）
+        observerInstances.push(observer);
+        // 更新UI
+        updateObserverTags();
+        addLog(`➕ 已添加观察者${id}（可接收库存变化通知）`, "success");
+      });
+
+      // 2. 移除最后一个观察者按钮事件
+      document.getElementById("removeObserverBtn").addEventListener("click", () => {
+        if (observerInstances.length === 0) {
+          addLog(`❌ 无观察者可移除`, "warning");
+          return;
+        }
+        // 移除最后一个观察者实例
+        const removedObserver = observerInstances.pop();
+        // 目标移除该观察者
+        productSubject.removeObserver(removedObserver);
+        // 更新UI
+        updateObserverTags();
+        addLog(`➖ 已移除观察者${removedObserver.id}（不再接收通知）`, "warning");
+      });
+
+      // 3. 更新目标状态（触发通知）按钮事件
+      document.getElementById("notifyBtn").addEventListener("click", () => {
+        // 模拟库存变化（随机增减 10-50 件）
+        const change = Math.floor(Math.random() * 41) - 20; // -20 到 +20 之间
+        const newState = Math.max(0, productSubject.state + change); // 库存不低于0
+        productSubject.setState(newState); // 更新状态，自动通知观察者
+        updateSubjectStatus(); // 更新UI展示
+      });
+
+      // 4. 清空日志按钮事件
+      document.getElementById("clearLogBtn").addEventListener("click", () => {
+        logContainer.innerHTML = "";
+        addLog(`🗑️  日志已清空`, "info");
+      });
+
+      // 初始化页面状态
+      updateObserverTags();
+      updateSubjectStatus();
+      addLog(`📌 初始化完成：目标（商品库存）初始状态 = 100 件`, "info");
+    </script>
+  </body>
+</html>

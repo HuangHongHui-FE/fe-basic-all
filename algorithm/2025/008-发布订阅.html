@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>发布订阅模式 Demo</title>
+  </head>
+  <body>
+    <script>
+      class EventEmitter {
+        constructor() {
+          this.events = {};
+        }
+
+        on(eventName, callback) {
+          if (!this.events[eventName]) {
+            this.events[eventName] = [];
+          }
+          this.events[eventName].push(callback);
+          return this; // 支持链式调用
+        }
+
+        once(eventName, callback) {
+          const wrapCallback = (...args) => {
+            callback(...args);
+            this.off(eventName, wrapCallback);
+          };
+          this.on(eventName, wrapCallback);
+          return this;
+        }
+
+        emit(eventName, ...args) {
+          if (!this.events[eventName]) return;
+          this.events[eventName].forEach((callback) => {
+            callback(...args);
+          });
+          return this;
+        }
+
+        off(eventName, callback) {
+          if (!this.events[eventName]) return;
+          this.events[eventName] = this.events[eventName].filter((cb) => cb !== callback);
+          return this;
+        }
+
+        clear(eventName) {
+          if (this.events[eventName]) {
+            delete this.events[eventName];
+          }
+          return this;
+        }
+      }
+
+      // 初始化发布订阅实例
+      const eventBus = new EventEmitter();
+
+      function fnEvent2(props) {
+        console.log("🚀 ~ fnEvent2 ~ props:", props);
+      }
+
+      eventBus.on("event1", function (props) {
+        console.log("🚀 ~ event1:", props);
+      });
+      eventBus.on("event1", function (props) {
+        console.log("🚀 ~ event11:", props);
+      });
+      eventBus.on("event2", fnEvent2);
+
+      eventBus.off("event2", fnEvent2);
+
+      eventBus.emit("event2", { name: 111 });
+      eventBus.emit("event1", { name: 111 });
+    </script>
+  </body>
+</html>
