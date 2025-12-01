@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let ls = [4, 6, 9, 2, 3, 1, 10, 5, 8, 7];
+      // 冒泡
+      // function BubbleSort(arr) {
+      //   for (let i = 0; i < arr.length; i++) {
+      //     for (let j = 0; j < arr.length - i - 1; j++) {
+      //       if (arr[j] > arr[j + 1]) {
+      //         let temp = arr[j];
+      //         arr[j] = arr[j + 1];
+      //         arr[j + 1] = temp;
+      //       }
+      //     }
+      //   }
+      //   return arr;
+      // }
+      // console.log(bubbleSort(ls));
+
+      // 选择
+      function selectionSort(arr) {
+        const len = arr.length;
+        let minIndex;
+        for (let i = 0; i < len - 1; i++) {
+          minIndex = i;
+          for (let j = i + 1; j < len; j++) {
+            if (arr[j] < arr[minIndex]) {
+              minIndex = j;
+            }
+          }
+          if (minIndex !== i) {
+            [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+          }
+        }
+        return arr;
+      }
+
+      console.log(selectionSort(ls));
+    </script>
+  </body>
+</html>

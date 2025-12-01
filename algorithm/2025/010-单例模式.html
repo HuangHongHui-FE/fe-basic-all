@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class Instance {
+        constructor() {
+          if (Instance.instance) {
+            return Instance.instance;
+          }
+          Instance.instance = this;
+        }
+
+        sayHello() {
+          console.log("🚀 ~ Instance ~ sayHello ~ sayHello:", 111);
+        }
+      }
+      const ins1 = new Instance();
+      const ins2 = new Instance();
+      console.log("🚀 ~ ins1:", ins1 === ins2);
+      ins1.sayHello();
+    </script>
+  </body>
+</html>
